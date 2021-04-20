@@ -20,9 +20,9 @@ class _BooksAppState extends State<BooksApp> {
   Book _selectedBook;
 
   List<Book> books = [
-    Book('Left Hand of Darkness', 'Ursula K. Le Guin'),
-    Book('Too Like the Lightning', 'Ada Palmer'),
-    Book('Kindred', 'Octavia E. Butler'),
+    Book('Book Name1', 'Author 1'),
+    Book('Book Name2', 'Author 2'),
+    Book('Book Name3', 'Author 3'),
   ];
 
   @override
