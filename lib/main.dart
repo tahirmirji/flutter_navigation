@@ -1,136 +1,21 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(BooksApp());
+void main(List<String> args) {
+  runApp(FirestoreApp());
 }
 
-class Book {
-  final String title;
-  final String author;
+class FirestoreApp extends StatefulWidget {
+  FirestoreApp({Key key}) : super(key: key);
 
-  Book(this.title, this.author);
-}
-
-class BooksApp extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _BooksAppState();
+  _FirestoreAppState createState() => _FirestoreAppState();
 }
 
-class _BooksAppState extends State<BooksApp> {
-  Book _selectedBook;
-
-  List<Book> books = [
-    Book('Book Name1', 'Author 1'),
-    Book('Book Name2', 'Author 2'),
-    Book('Book Name3', 'Author 3'),
-  ];
-
+class _FirestoreAppState extends State<FirestoreApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Books App',
-      home: Navigator(
-        pages: [
-          MaterialPage(
-            key: ValueKey('BooksListPage'),
-            child: BooksListScreen(
-              books: books,
-              onTapped: _handleBookTapped,
-            ),
-          ),
-          if (_selectedBook != null)
-          BookDetailsPage(book: _selectedBook)
-        ],
-        onPopPage: (route, result) {
-          if (!route.didPop(result)) {
-            return false;
-          }
-
-          // Update the list of pages by setting _selectedBook to null
-          setState(() {
-            _selectedBook = null;
-          });
-
-          return true;
-        },
-      ),
-    );
-  }
-
-  void _handleBookTapped(Book book) {
-    setState(() {
-      _selectedBook = book;
-    });
-  }
-}
-
-class BookDetailsPage extends Page {
-  final Book book;
-
-  BookDetailsPage({
-    this.book,
-  }) : super(key: ValueKey(book));
-
-  Route createRoute(BuildContext context) {
-    return MaterialPageRoute(
-      settings: this,
-      builder: (BuildContext context) {
-        return BookDetailsScreen(book: book);
-      },
-    );
-  }
-}
-
-class BooksListScreen extends StatelessWidget {
-  final List<Book> books;
-  final ValueChanged<Book> onTapped;
-
-  BooksListScreen({
-    @required this.books,
-    @required this.onTapped,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: ListView(
-        children: [
-          for (var book in books)
-            ListTile(
-              title: Text(book.title),
-              subtitle: Text(book.author),
-              onTap: () => onTapped(book),
-            )
-        ],
-      ),
-    );
-  }
-}
-
-class BookDetailsScreen extends StatelessWidget {
-  final Book book;
-
-  BookDetailsScreen({
-    @required this.book,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (book != null) ...[
-              Text(book.title, style: Theme.of(context).textTheme.headline6),
-              Text(book.author, style: Theme.of(context).textTheme.subtitle1),
-            ],
-          ],
-        ),
-      ),
+    return Container(
+      child: Text('Hello World'),
     );
   }
 }
